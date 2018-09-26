@@ -26,4 +26,6 @@ public final class Constants {
             TRANSITION_URL_09,
             TRANSITION_URL_10
     };
+
+    public static final String BASE_URL = "https://gank.io/api/data/";
 }
