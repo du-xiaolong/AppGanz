@@ -28,4 +28,6 @@ public final class Constants {
     };
 
     public static final String BASE_URL = "https://gank.io/api/data/";
+
+    public static final String[] categoryNames = {"福利", "Android", "iOS", "休息视频", "拓展资源", "前端", "all"};
 }

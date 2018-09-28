@@ -2,6 +2,8 @@ package com.dxl.appganz.ui;
 
 import android.content.Context;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Toast;
 
