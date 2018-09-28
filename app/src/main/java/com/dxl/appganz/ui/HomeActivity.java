@@ -1,6 +1,7 @@
 package com.dxl.appganz.ui;
 
 import android.content.Context;
+import android.support.design.widget.TabLayout;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -22,10 +23,12 @@ import butterknife.BindView;
  */
 public class HomeActivity extends BaseActivity implements IHomeView {
 
-    HomePresenter mHomePresenter;
-
     @BindView(R.id.banner)
     Banner mBanner;
+    @BindView(R.id.tab_layout)
+    TabLayout mTablayout;
+
+    HomePresenter mHomePresenter;
 
     @Override
     protected int getContentViewId() {
