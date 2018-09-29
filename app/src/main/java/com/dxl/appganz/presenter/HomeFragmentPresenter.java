@@ -25,7 +25,7 @@ public class HomeFragmentPresenter implements IHomeFragmentPresenter {
 
     @Override
     public void getCategoryItemsData() {
-        mSubscription = NetUtil.getGankApi().getCategoryResult("Android", 10, 1)
+        mSubscription = NetUtil.getGankApi().getCategoryResult(mHomeFragmentView.getCategoryName(), 10, 1)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<CategoryResult>() {

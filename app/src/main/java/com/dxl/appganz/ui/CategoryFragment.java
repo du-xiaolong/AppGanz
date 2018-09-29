@@ -1,21 +1,17 @@
 package com.dxl.appganz.ui;
 
-import android.support.annotation.NonNull;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dxl.appganz.R;
+import com.dxl.appganz.adapter.MyRecyclerViewAdapter;
 import com.dxl.appganz.base.BaseFragment;
 import com.dxl.appganz.interf.IHomeFragmentView;
 import com.dxl.appganz.model.CategoryResult;
 import com.dxl.appganz.presenter.HomeFragmentPresenter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -28,8 +24,22 @@ public class CategoryFragment extends BaseFragment implements IHomeFragmentView 
     @BindView(R.id.recycler_view)
     RecyclerView mRecyclerView;
 
+    private static final String CATEGORY_NAME = "category_name";
+
     HomeFragmentPresenter mFragmentPresenter;
+
+    private String title = "";
+
     private MyRecyclerViewAdapter mAdapter;
+
+    public static CategoryFragment newInstance(String categoryName) {
+
+        Bundle args = new Bundle();
+        args.putString(CATEGORY_NAME, categoryName);
+        CategoryFragment fragment = new CategoryFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
 
 
     @Override
@@ -62,48 +72,9 @@ public class CategoryFragment extends BaseFragment implements IHomeFragmentView 
         mAdapter.addData(items);
     }
 
-
-    class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAdapter.ViewHolder> {
-
-        public MyRecyclerViewAdapter() {
-
-        }
-
-        public void addData(List<CategoryResult.ResultsBean> list){
-            itemList.clear();
-            itemList.addAll(list);
-            notifyDataSetChanged();
-        }
-
-        private List<CategoryResult.ResultsBean> itemList = new ArrayList<>();
-
-
-        @NonNull
-        @Override
-        public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-            View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_view, viewGroup, false);
-            return new ViewHolder(view);
-        }
-
-        @Override
-        public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-            viewHolder.item_text.setText(itemList.get(i).desc);
-        }
-
-        @Override
-        public int getItemCount() {
-            return itemList == null ? 0 : itemList.size();
-        }
-
-        class ViewHolder extends RecyclerView.ViewHolder {
-
-            TextView item_text;
-
-            ViewHolder(@NonNull View itemView) {
-                super(itemView);
-                item_text = itemView.findViewById(R.id.item_text);
-            }
-        }
+    @Override
+    public String getCategoryName() {
+        return getArguments().getString(CATEGORY_NAME, "");
     }
 
     @Override

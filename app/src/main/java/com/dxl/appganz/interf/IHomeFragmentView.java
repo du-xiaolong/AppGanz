@@ -13,4 +13,6 @@ public interface IHomeFragmentView extends BaseView{
 
     void setCategoryItems(List<CategoryResult.ResultsBean> items);
 
+    String getCategoryName();
+
 }

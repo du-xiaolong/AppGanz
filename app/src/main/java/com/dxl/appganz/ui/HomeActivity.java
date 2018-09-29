@@ -3,13 +3,16 @@ package com.dxl.appganz.ui;
 import android.content.Context;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.dxl.appganz.R;
+import com.dxl.appganz.adapter.CommonViewPagerAdapter;
 import com.dxl.appganz.base.BaseActivity;
+import com.dxl.appganz.data.Constants;
 import com.dxl.appganz.interf.IHomeView;
 import com.dxl.appganz.presenter.HomePresenter;
 import com.youth.banner.Banner;
@@ -29,6 +32,8 @@ public class HomeActivity extends BaseActivity implements IHomeView {
     Banner mBanner;
     @BindView(R.id.tab_layout)
     TabLayout mTablayout;
+    @BindView(R.id.main_vp)
+    ViewPager viewPager;
 
     HomePresenter mHomePresenter;
 
@@ -57,6 +62,16 @@ public class HomeActivity extends BaseActivity implements IHomeView {
                         Glide.with(HomeActivity.this).load(path).into(imageView);
                     }
                 });
+        CommonViewPagerAdapter pagerAdapter = new CommonViewPagerAdapter(getSupportFragmentManager());
+        for (int i = 0; i < Constants.categoryNames.length; i++) {
+            CategoryFragment fragment = CategoryFragment.newInstance(Constants.categoryNames[i]);
+            pagerAdapter.addFragment(fragment, Constants.categoryNames[i]);
+        }
+        viewPager.setAdapter(pagerAdapter);
+        viewPager.setCurrentItem(0);
+        viewPager.setOffscreenPageLimit(pagerAdapter.getCount());
+        mTablayout.setupWithViewPager(viewPager);
+
         mHomePresenter.subscribe();
     }
 
