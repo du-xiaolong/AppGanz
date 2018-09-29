@@ -5,18 +5,17 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import com.dxl.appganz.ui.CategoryFragment;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class CommonViewPagerAdapter extends FragmentPagerAdapter {
 
-    private List<Fragment> fragments = new ArrayList<>();
+    private List<CategoryFragment> fragments = new ArrayList<>();
 
-    List<String> titles = new ArrayList<>();
-
-    public void addFragment(Fragment fragment, String title) {
+    public void addFragment(CategoryFragment fragment) {
         fragments.add(fragment);
-        titles.add(title);
     }
 
 
@@ -37,6 +36,6 @@ public class CommonViewPagerAdapter extends FragmentPagerAdapter {
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
-        return titles.get(position);
+        return ((CategoryFragment) getItem(position)).getCategoryName();
     }
 }

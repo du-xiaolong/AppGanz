@@ -65,7 +65,7 @@ public class HomeActivity extends BaseActivity implements IHomeView {
         CommonViewPagerAdapter pagerAdapter = new CommonViewPagerAdapter(getSupportFragmentManager());
         for (int i = 0; i < Constants.categoryNames.length; i++) {
             CategoryFragment fragment = CategoryFragment.newInstance(Constants.categoryNames[i]);
-            pagerAdapter.addFragment(fragment, Constants.categoryNames[i]);
+            pagerAdapter.addFragment(fragment);
         }
         viewPager.setAdapter(pagerAdapter);
         viewPager.setCurrentItem(0);
