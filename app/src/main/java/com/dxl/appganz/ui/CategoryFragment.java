@@ -57,7 +57,7 @@ public class CategoryFragment extends BaseFragment implements IHomeFragmentView 
     //初始化RecyclerView
     private void initRecyclerView() {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-        mAdapter = new MyRecyclerViewAdapter();
+        mAdapter = new MyRecyclerViewAdapter(getContext());
         mRecyclerView.setAdapter(mAdapter);
     }
 
@@ -69,7 +69,7 @@ public class CategoryFragment extends BaseFragment implements IHomeFragmentView 
 
     @Override
     public void setCategoryItems(List<CategoryResult.ResultsBean> items) {
-        mAdapter.addData(items);
+        mAdapter.setData(items);
     }
 
     @Override
@@ -80,6 +80,8 @@ public class CategoryFragment extends BaseFragment implements IHomeFragmentView 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mFragmentPresenter.unSubscribe();
+        if (mFragmentPresenter != null) {
+            mFragmentPresenter.unSubscribe();
+        }
     }
 }

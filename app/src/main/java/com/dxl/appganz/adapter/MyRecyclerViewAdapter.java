@@ -1,58 +1,38 @@
 package com.dxl.appganz.adapter;
 
 
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
+import android.content.Context;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.dxl.appganz.R;
 import com.dxl.appganz.model.CategoryResult;
 
-import java.util.ArrayList;
-import java.util.List;
+public class MyRecyclerViewAdapter extends CommonRecyclerAdapter<CategoryResult.ResultsBean> {
 
-public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAdapter.ViewHolder> {
-
-    public MyRecyclerViewAdapter() {
+    public MyRecyclerViewAdapter(Context context) {
+        super(context, R.layout.item_category);
 
     }
 
-    public void addData(List<CategoryResult.ResultsBean> list) {
-        itemList.clear();
-        itemList.addAll(list);
-        notifyDataSetChanged();
-    }
-
-    private List<CategoryResult.ResultsBean> itemList = new ArrayList<>();
-
-
-    @NonNull
-    @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_view, viewGroup, false);
-        return new ViewHolder(view);
-    }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-        viewHolder.item_text.setText(itemList.get(i).desc);
-    }
-
-    @Override
-    public int getItemCount() {
-        return itemList == null ? 0 : itemList.size();
-    }
-
-    class ViewHolder extends RecyclerView.ViewHolder {
-
-        TextView item_text;
-
-        ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            item_text = itemView.findViewById(R.id.item_text);
+    protected void convert(CommonRecyclerHolder holder, CategoryResult.ResultsBean resultsBean) {
+        if (resultsBean == null) return;
+        ImageView imageView = holder.getView(R.id.category_item_img);
+        if (resultsBean.images != null && resultsBean.images.size() > 0) {
+            String quality = "?imageView2/0/w/400";
+            Glide.with(mContext)
+                    .load(resultsBean.images.get(0) + quality)
+                    .placeholder(R.mipmap.image_default)
+                    .error(R.mipmap.image_default)
+                    .into(imageView);
         }
+        holder.setTextViewText(R.id.category_item_desc, resultsBean.desc == null ? "unknown" : resultsBean.desc);
+        holder.setTextViewText(R.id.category_item_author, resultsBean.who == null ? "unknown" : resultsBean.who);
+        holder.setTextViewText(R.id.category_item_time, resultsBean.publishedAt);
+        holder.setTextViewText(R.id.category_item_src, resultsBean.source == null ? "unknown" : resultsBean.source);
     }
+
+
 }
