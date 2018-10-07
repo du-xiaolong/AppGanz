@@ -8,6 +8,8 @@ import com.bumptech.glide.Glide;
 import com.dxl.appganz.R;
 import com.dxl.appganz.model.CategoryResult;
 
+import java.text.SimpleDateFormat;
+
 public class MyRecyclerViewAdapter extends CommonRecyclerAdapter<CategoryResult.ResultsBean> {
 
     public MyRecyclerViewAdapter(Context context) {
@@ -30,7 +32,7 @@ public class MyRecyclerViewAdapter extends CommonRecyclerAdapter<CategoryResult.
         }
         holder.setTextViewText(R.id.category_item_desc, resultsBean.desc == null ? "unknown" : resultsBean.desc);
         holder.setTextViewText(R.id.category_item_author, resultsBean.who == null ? "unknown" : resultsBean.who);
-        holder.setTextViewText(R.id.category_item_time, resultsBean.publishedAt);
+        holder.setTextViewText(R.id.category_item_time, new SimpleDateFormat("yyyy-MM-dd").format(resultsBean.publishedAt));
         holder.setTextViewText(R.id.category_item_src, resultsBean.source == null ? "unknown" : resultsBean.source);
     }
 

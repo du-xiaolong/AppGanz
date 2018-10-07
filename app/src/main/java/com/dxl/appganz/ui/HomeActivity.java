@@ -2,9 +2,7 @@ package com.dxl.appganz.ui;
 
 import android.content.Context;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -15,6 +13,7 @@ import com.dxl.appganz.base.BaseActivity;
 import com.dxl.appganz.data.Constants;
 import com.dxl.appganz.interf.IHomeView;
 import com.dxl.appganz.presenter.HomePresenter;
+import com.dxl.appganz.util.StatusBarUtil;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.loader.ImageLoader;
@@ -50,6 +49,11 @@ public class HomeActivity extends BaseActivity implements IHomeView {
     @Override
     public void setBanner(List<String> imgs) {
         mBanner.setImages(imgs).start();
+    }
+
+    @Override
+    protected void beforeInit() {
+        StatusBarUtil.setTranslucent(this);
     }
 
     @Override
