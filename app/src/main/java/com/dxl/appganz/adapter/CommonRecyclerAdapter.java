@@ -12,6 +12,10 @@ import java.util.List;
 
 public abstract class CommonRecyclerAdapter<T> extends RecyclerView.Adapter {
 
+    public List<T> getDatas() {
+        return mDatas;
+    }
+
     private List<T> mDatas = new ArrayList<>();
     private int mLayoutID;
     protected Context mContext;
@@ -28,6 +32,8 @@ public abstract class CommonRecyclerAdapter<T> extends RecyclerView.Adapter {
         addData(data);
     }
 
+
+
     CommonRecyclerAdapter(Context context, int layoutId) {
         mContext = context;
         mLayoutID = layoutId;
@@ -42,7 +48,9 @@ public abstract class CommonRecyclerAdapter<T> extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
-        convert((CommonRecyclerHolder) viewHolder, mDatas.get(i));
+        CommonRecyclerHolder holder = (CommonRecyclerHolder) viewHolder;
+        holder.position = i;
+        convert(holder, mDatas.get(i));
     }
 
     @Override
@@ -51,5 +59,7 @@ public abstract class CommonRecyclerAdapter<T> extends RecyclerView.Adapter {
     }
 
     protected abstract void convert(CommonRecyclerHolder holder, T t);
+
+
 
 }
